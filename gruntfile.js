@@ -13,8 +13,6 @@ module.exports = function (grunt) {
                     './src/js/react_blocks.js'
                 ],
                 output: {
-                    path: __dirname,
-                    publicPath: '/',
                     filename: './dist/bundle.js'
                 },
                 module: {
@@ -30,7 +28,8 @@ module.exports = function (grunt) {
                     colors: true
                 },
                 progress: false,
-                inline: false
+                inline: false,
+                devtool: 'source-map'
             }
         },
         copy: {
@@ -41,12 +40,28 @@ module.exports = function (grunt) {
                         cwd: 'src/',
                         src: ['index.html', 'css/*'],
                         dest: 'dist/'
+                    },{
+                        expand: true,
+                        cwd: 'bower_components/magic/',
+                        src: ['magic.min.css'],
+                        dest: 'dist/css/'
                     }
                 ]
             }
         },
-        clean: ['dist/']
+        clean: ['dist/**/*'],
+        uglify: {
+            options: {
+                mangle: false
+            },
+            dist: {
+                files: {
+                    'dist/bundle.js': ['dist/bundle.js']
+                }
+            }
+        }
     });
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');

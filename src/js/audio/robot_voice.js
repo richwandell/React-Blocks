@@ -8,8 +8,10 @@ class RobotVoice extends Component {
     }
 
     play() {
+        this.audio.load();
         this.audio.play();
     }
+
 
     render() {
         return (

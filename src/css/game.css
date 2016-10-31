@@ -1,25 +1,30 @@
-#little_box_container_container{
-  width: 600px;
-  height: 1000px;
-}
-.little_box_container{
-  width: 60px;
-  height: 567px;
-  display: inline-block;
-  transform: rotate(-180deg);
-  vertical-align: top;
+#game_board {
+    width: 600px;
+    height: 1000px;
 }
 
-.little_box{
-  width: 50px;
-  height: 50px;
-  background: black;
-  display: table;
-  border-radius: 5px;
-  margin: 5px;
-  box-shadow: -5px -5px 5px rgba(16, 16, 16, 0.8);
+.little_box_container {
+    width: 60px;
+    height: 567px;
+    display: inline-block;
+    transform: rotate(-180deg);
+    vertical-align: top;
 }
 
-.little_box:hover{
-  box-shadow: 0px 0px 10px #211D03;
+.little_box {
+    width: 50px;
+    height: 50px;
+    background: black;
+    display: table;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: -5px -5px 5px rgba(16, 16, 16, 0.8);
+}
+
+.little_box:hover {
+    box-shadow: 0px 0px 10px #211D03;
+}
+
+.magictime {
+    animation-duration: 1.5s;
 }

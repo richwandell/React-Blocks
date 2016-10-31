@@ -1,17 +1,11 @@
+import Color from './color';
+
 class Rainbow  {
 
-    static colors = [
-        {"color": "pink", "p": 100},
-        {"color": "purple", "p": 200},
-        {"color": "blue", "p": 300},
-        {"color": "yellow", "p": 350},
-        {"color": "red", "p": 400},
-        {"color": "green", "p": 450},
-        {"color": "brown", "p": 200}
-    ];
+    static colors = [Color.PINK, Color.PURPLE, Color.BLUE, Color.YELLOW, Color.RED, Color.GREEN, Color.BROWN];
 
     static getRandomColor(){
-        return Rainbow.colors[Math.floor(Math.random() * Rainbow.colors.length)]
+        return new Color(Rainbow.colors[Math.floor(Math.random() * Rainbow.colors.length)]);
     }
 }
 

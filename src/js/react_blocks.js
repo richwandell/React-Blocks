@@ -3,13 +3,27 @@ import ReactDOM from 'react-dom';
 import MetalClank from './audio/metal_clank';
 import RobotVoice from './audio/robot_voice';
 import GameScore from './comp/game_score';
-import LittleBoxContainerContainer from './little_box/little_box_container_container';
+import GameBoard from './game_matrix/game_board';
 
 class ReactBlocks extends Component {
 
+    static debug = true;
+    static superDebug = false;
+
     constructor(props) {
-        super(props);
         console.debug("ReactBlocks");
+        super(props);
+        this.littleBoxContainers = [];
+    }
+
+    setLittleBoxContainer(x, cont) {
+        this.littleBoxContainers[x] = cont;
+    }
+
+    removeBoxes() {
+        for(var cont of this.littleBoxContainers){
+            cont.removeBoxes();
+        }
     }
 
     render() {
@@ -21,15 +35,15 @@ class ReactBlocks extends Component {
                     ref={(robot) => this.robotVoice = robot} />
                 <GameScore
                     ref={(score) => this.gameScore = score} />
-                <LittleBoxContainerContainer
+                <GameBoard
                     reactBlocks={this}
-                    ref={(container) => this.container = container} />
+                    ref={(gameBoard) => this.gameBoard = gameBoard} />
             </div>
         );
     }
 }
 
-ReactDOM.render(<ReactBlocks />, $('#react_container')[0]);
+ReactDOM.render(<ReactBlocks />, document.getElementById('react_container'));
 
 
 
