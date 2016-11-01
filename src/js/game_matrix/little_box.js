@@ -11,10 +11,9 @@ class LittleBox extends Component {
         this.container = props.container;
         this.color = props.color;
         this.state = {
-            x: props.x_val,
-            y: props.y_val,
             dying: props.dying
         };
+
     }
 
     /**
@@ -23,20 +22,16 @@ class LittleBox extends Component {
      */
     littleBoxClicked(event){
         let value = this.color.getValue();
-        let that = this;
-        this.container.setDying([this.state.y])
+        this.container.setDying([this.props.y_val]);
         this.reactBlocks.gameScore.addPoints(value);
         this.reactBlocks.gameBoard.lookForPoints();
-        setTimeout(()=>{
-            that.reactBlocks.removeBoxes();
-        }, 1000);
     }
 
     render() {
         const colorStyle = {background: this.color.getColor()};
         let className = "little_box ";
         if(this.props.dying || this.state.dying){
-            className += "magictime puffOut";
+            className += "magictime holeOut";
         }
         return (
             <div
