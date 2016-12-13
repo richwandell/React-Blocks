@@ -7,12 +7,13 @@ import GameBoard from './game_board';
 class LittleBoxContainer extends Component {
 
     constructor(props) {
+
         console.debug("LittleBoxContainer");
         super(props);
         this.reactBlocks = props.reactBlocks;
         this.x_val = props.x_val;
         let littleBoxes = [];
-        for (var y = 0; y < GameBoard.rows; y++) {
+        for (let y = 0; y < GameBoard.rows; y++) {
             let color = Rainbow.getRandomColor();
             littleBoxes.push({
                 y: y,
@@ -29,45 +30,26 @@ class LittleBoxContainer extends Component {
     }
 
     lookForPoints() {
-        let pre = false;
-        let prepre = false;
-        var littleBoxes = this.state.littleBoxes;
+        let littleBoxes = this.state.littleBoxes;
 
-        var boxLoop = () => {
-            for (var box of littleBoxes) {
-                if (typeof(box) != "undefined") {
-                    if (prepre === false) {
-                        prepre = box;
-                    } else if (pre === false) {
-                        pre = box;
-                    } else {
-                        let precolor = Symbol.for(pre.color.color);
-                        let preprecolor = Symbol.for(prepre.color.color);
-                        let boxcolor = Symbol.for(box.color.color);
-                        if (precolor === preprecolor && precolor === boxcolor) {
-                            let points = Color.color_values[precolor] * 3;
-                            this.reactBlocks.gameScore.addPoints(points);
-                            this.setDying([
-                                pre.y,
-                                prepre.y,
-                                box.y
-                            ]);
-                            break;
-                        } else {
-                            prepre = pre;
-                            pre = box;
-                        }
-                    }
-                }
+        for(let y = 2; y < littleBoxes.length; y++){
+            let a = littleBoxes[y - 2];
+            let b = littleBoxes[y - 1];
+            let c = littleBoxes[y];
+            let ac = Symbol.for(a.color.color);
+            let bc = Symbol.for(b.color.color);
+            let cc = Symbol.for(c.color.color);
+
+            if(ac === bc && ac === cc){
+                this.setDying([y-2, y-1, y]);
             }
-        };
-        boxLoop();
+        }
     }
 
     removeBoxes() {
         let temp = this.state.littleBoxes;
         let needsUpdate = false;
-        for(var x = 0; x < temp.length; x++){
+        for(let x = 0; x < temp.length; x++){
             if(typeof(temp[x]) != "undefined" && temp[x].dying){
                 needsUpdate = true;
                 delete temp[x];
@@ -79,10 +61,11 @@ class LittleBoxContainer extends Component {
     }
 
     setDying(ys) {
+
         GameBoard.needsRemove = true;
         this.reactBlocks.metalClank.play();
         let temp = this.state.littleBoxes;
-        for(var y of ys) {
+        for(let y of ys) {
             if(typeof(temp[y]) != "undefined") {
                 temp[y].dying = true;
             }
@@ -106,8 +89,8 @@ class LittleBoxContainer extends Component {
 
     render() {
         let littleBoxes = [];
-        var current = 0;
-        for(var y = 0; y < this.state.littleBoxes.length; y++) {
+        let current = 0;
+        for(let y = 0; y < this.state.littleBoxes.length; y++) {
             if(typeof(this.state.littleBoxes[y]) != "undefined" ) {
                 let box = this.state.littleBoxes[y];
                 littleBoxes.push(<LittleBox

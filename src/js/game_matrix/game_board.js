@@ -11,20 +11,24 @@ class GameBoard extends Component {
         console.debug("GameBoard");
         super(props);
         this.reactBlocks = props.reactBlocks;
+        this.timer = 0;
     }
 
 
 
     lookForPoints() {
-        for(var cont of this.reactBlocks.littleBoxContainers) {
-            cont.lookForPoints();
+        let verticalRemove = [];
+        let count = 0;
+        for(let cont of this.reactBlocks.littleBoxContainers) {
+            verticalRemove[count] = cont.lookForPoints();
+            count++;
         }
         let update = [];
-        for(var x = 2; x < GameBoard.columns; x++) {
+        for(let x = 2; x < GameBoard.columns; x++) {
             let a = this.reactBlocks.littleBoxContainers[x-2];
             let b = this.reactBlocks.littleBoxContainers[x-1];
             let c = this.reactBlocks.littleBoxContainers[x];
-            for(var y = 0; y < GameBoard.rows; y++){
+            for(let y = 0; y < GameBoard.rows; y++){
                 if(
                     typeof(a.state.littleBoxes[y]) != "undefined" &&
                     typeof(b.state.littleBoxes[y]) != "undefined" &&
@@ -47,17 +51,19 @@ class GameBoard extends Component {
                 }
             }
         }
-        for(var u of update) {
+        for(let u of update) {
             u.setState(u.state);
         }
         let that = this;
-        setTimeout(()=>{
+        clearTimeout(this.timer);
+        this.timer = setTimeout(()=>{
             if(GameBoard.needsRemove) {
                 GameBoard.needsRemove = false;
                 that.reactBlocks.removeBoxes();
                 that.lookForPoints();
             }
-        }, 1000);
+        }, 1000)
+
     }
 
     render() {
