@@ -16,7 +16,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-exec": "^1.0.1",
     "grunt-webpack": "^1.0.18",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.13",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
